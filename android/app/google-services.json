@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "260424683807",
+    "firebase_url": "https://chat-me-flutter.firebaseio.com",
+    "project_id": "chat-me-flutter",
+    "storage_bucket": "chat-me-flutter.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:260424683807:android:ac34cf3f54fe488942202a",
+        "android_client_info": {
+          "package_name": "com.example.chat_me"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "260424683807-p3d16ul4ejcudldn5u62chd68fclaqvk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDK5hnnyJqBhcPAqLVj5sUFgHAG0p0uvgY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "260424683807-p3d16ul4ejcudldn5u62chd68fclaqvk.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "260424683807-sb41f3ggg70u110np4soicjhiqrmig5s.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.chatMe"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
