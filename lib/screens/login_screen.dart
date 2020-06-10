@@ -19,10 +19,9 @@ class _LoginScreenState extends State<LoginScreen> {
 
     try {
       setState(() {
-      _isLoading = true;
-    });
+        _isLoading = true;
+      });
       await _auth.signInWithEmailAndPassword(email: email, password: password);
-
     } on PlatformException catch (error) {
       var message = 'Login gagal, Periksa kembali akun anda';
 
@@ -31,20 +30,18 @@ class _LoginScreenState extends State<LoginScreen> {
       }
 
       Scaffold.of(ctx).hideCurrentSnackBar();
-      Scaffold.of(ctx).showSnackBar(
-        SnackBar(
-          content: Text(message),
-          backgroundColor: Theme.of(ctx).errorColor,
-        )
-      );
+      Scaffold.of(ctx).showSnackBar(SnackBar(
+        content: Text(message),
+        backgroundColor: Theme.of(ctx).errorColor,
+      ));
       setState(() {
-      _isLoading = false;
-    });
+        _isLoading = false;
+      });
     } catch (error) {
-      print (error);
+      print(error);
       setState(() {
-      _isLoading = false;
-    });
+        _isLoading = false;
+      });
     }
   }
 
@@ -58,7 +55,9 @@ class _LoginScreenState extends State<LoginScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              SizedBox(height: 100,),
+              SizedBox(
+                height: 100,
+              ),
               Row(
                 children: <Widget>[
                   Text(
@@ -88,7 +87,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   FlatButton(
                       materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                       padding: EdgeInsets.symmetric(horizontal: 0),
-                      onPressed: () => Navigator.pushNamed(context, RegisterScreen.routeName),
+                      onPressed: () => Navigator.pushNamed(
+                          context, RegisterScreen.routeName),
                       child: Text('Register'))
                 ],
               )

@@ -5,7 +5,7 @@ class LoginForm extends StatefulWidget {
   final void Function(
     String email,
     String password,
-    BuildContext ctx
+    BuildContext ctx,
   ) userLogin;
 
   final bool isLoading;
@@ -86,7 +86,9 @@ class _LoginFormState extends State<LoginForm> {
           SizedBox(
             height: 32,
           ),
-          widget.isLoading ? Center(child: CircularProgressIndicator()) : ButtonSubmit(_userSubmit, true),
+          widget.isLoading
+              ? Center(child: CircularProgressIndicator())
+              : ButtonSubmit(_userSubmit, true),
           SizedBox(
             height: 24,
           ),

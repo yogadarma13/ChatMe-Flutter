@@ -56,13 +56,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
         backgroundColor: Theme.of(ctx).errorColor,
       ));
       setState(() {
-      _isLoading = false;
-    });
+        _isLoading = false;
+      });
     } catch (error) {
       print(error);
       setState(() {
-      _isLoading = false;
-    });
+        _isLoading = false;
+      });
     }
   }
 

@@ -3,7 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 import './screens/login_screen.dart';
 import './screens/register_screen.dart';
-import './screens/chat_screen.dart';
+import './screens/main_screen.dart';
+import './screens/room_chat_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -28,6 +29,7 @@ class MyApp extends StatelessWidget {
         ),
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
+      debugShowCheckedModeBanner: false,
       home: StreamBuilder(
         stream: FirebaseAuth.instance.onAuthStateChanged,
         builder: (ctx, userSnapshot) {
@@ -35,13 +37,14 @@ class MyApp extends StatelessWidget {
           //   return Center(ch)
           // }
           if (userSnapshot.hasData) {
-            return ChatScreen();
+            return MainScreen();
           }
           return LoginScreen();
         },
       ),
       routes: {
         RegisterScreen.routeName: (ctx) => RegisterScreen(),
+        RoomChatScreen.routeName: (ctx) => RoomChatScreen(),
       },
     );
   }
