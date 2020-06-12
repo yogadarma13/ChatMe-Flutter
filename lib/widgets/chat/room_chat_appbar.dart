@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
 class RoomChatAppbar extends StatelessWidget implements PreferredSizeWidget {
+  final String username;
+  RoomChatAppbar(this.username);
+
   @override
   Widget build(BuildContext context) {
     return AppBar(
@@ -35,7 +38,7 @@ class RoomChatAppbar extends StatelessWidget implements PreferredSizeWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Text(
-                      'Yoga Darma',
+                      username,
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
                       ),

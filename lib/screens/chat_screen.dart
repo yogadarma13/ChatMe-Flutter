@@ -120,7 +120,7 @@ class ChatScreen extends StatelessWidget {
                 physics: BouncingScrollPhysics(),
                 itemBuilder: (ctx, _) => ListTile(
                       onTap: () {
-                        Navigator.pushNamed(context, RoomChatScreen.routeName);
+                        Navigator.pushNamed(context, RoomChatScreen.routeName, arguments: 'Yoga Darma Putra');
                       },
                       leading: CircleAvatar(
                         maxRadius: 30,

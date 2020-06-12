@@ -44,9 +44,10 @@ class _NewMesssageState extends State<NewMesssage> {
               color: Colors.blue,
               borderRadius: BorderRadius.circular(30),
             ),
-            child: Icon(
-              Icons.send,
+            child: IconButton(
+              icon: Icon(Icons.send),
               color: Colors.white,
+              onPressed: () {},
             ),
           )
         ],
