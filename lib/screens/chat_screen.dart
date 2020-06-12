@@ -57,29 +57,32 @@ class ChatScreen extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  Container(
-                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-                    height: 30,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(30),
-                      color: Colors.blue[50],
-                    ),
-                    child: Row(
-                      children: <Widget>[
-                        Icon(
-                          Icons.add,
-                          color: Theme.of(context).primaryColor,
-                          size: 20,
-                        ),
-                        SizedBox(
-                          width: 2,
-                        ),
-                        Text(
-                          'New',
-                          style: TextStyle(
-                              fontSize: 14, fontWeight: FontWeight.bold),
-                        )
-                      ],
+                  GestureDetector(
+                    onTap: () {},
+                    child: Container(
+                      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                      height: 30,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(30),
+                        color: Colors.blue[50],
+                      ),
+                      child: Row(
+                        children: <Widget>[
+                          Icon(
+                            Icons.add,
+                            color: Theme.of(context).primaryColor,
+                            size: 20,
+                          ),
+                          SizedBox(
+                            width: 2,
+                          ),
+                          Text(
+                            'New Chat',
+                            style: TextStyle(
+                                fontSize: 14, fontWeight: FontWeight.bold),
+                          )
+                        ],
+                      ),
                     ),
                   )
                 ],
@@ -90,7 +93,7 @@ class ChatScreen extends StatelessWidget {
             padding: const EdgeInsets.only(top: 16, right: 16, left: 16),
             child: TextField(
               decoration: InputDecoration(
-                hintText: 'Search...',
+                hintText: 'Search chat...',
                 hintStyle: TextStyle(color: Colors.grey),
                 prefixIcon: Icon(
                   Icons.search,
@@ -120,7 +123,8 @@ class ChatScreen extends StatelessWidget {
                 physics: BouncingScrollPhysics(),
                 itemBuilder: (ctx, _) => ListTile(
                       onTap: () {
-                        Navigator.pushNamed(context, RoomChatScreen.routeName, arguments: 'Yoga Darma Putra');
+                        Navigator.pushNamed(context, RoomChatScreen.routeName,
+                            arguments: 'Yoga Darma Putra');
                       },
                       leading: CircleAvatar(
                         maxRadius: 30,

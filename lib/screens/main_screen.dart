@@ -1,7 +1,28 @@
+import 'package:chat_me/screens/profile_screen.dart';
 import 'package:flutter/material.dart';
+
+import './friends_screen.dart';
 import './chat_screen.dart';
 
-class MainScreen extends StatelessWidget {
+class MainScreen extends StatefulWidget {
+  @override
+  _MainScreenState createState() => _MainScreenState();
+}
+
+class _MainScreenState extends State<MainScreen> {
+  int _selectedIndex = 1;
+  final _screenOptions = [
+    FriendsScreen(),
+    ChatScreen(),
+    ProfileScreen()
+  ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,9 +45,10 @@ class MainScreen extends StatelessWidget {
             title: Text('Profile'),
           ),
         ],
-        currentIndex: 1,
+        onTap: _onItemTapped,
+        currentIndex: _selectedIndex,
       ),
-      body: ChatScreen(),
+      body: _screenOptions[_selectedIndex],
     );
   }
 }
