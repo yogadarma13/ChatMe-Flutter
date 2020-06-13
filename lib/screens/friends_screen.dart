@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 
+import '../widgets/friends/friends_list.dart';
+
 class FriendsScreen extends StatelessWidget {
+  void _displayFriendDetail() {}
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -76,23 +80,7 @@ class FriendsScreen extends StatelessWidget {
             ),
           ),
           Expanded(
-            child: ListView.builder(
-              itemCount: 10,
-              physics: BouncingScrollPhysics(),
-              itemBuilder: (ctx, index) => Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8),
-                child: ListTile(
-                  leading: CircleAvatar(
-                    maxRadius: 30,
-                    backgroundImage: NetworkImage(
-                        'https://www.biography.com/.image/t_share/MTM2OTI2NTY2Mjg5NTE2MTI5/justin_bieber_2015_photo_courtesy_dfree_shutterstock_348418241_croppedjpg.jpg'),
-                  ),
-                  title: Text('Yoga Darma'),
-                  
-                  onTap: () {},
-                ),
-              ),
-            ),
+            child: FriendsList(_displayFriendDetail),
           ),
         ],
       ),
