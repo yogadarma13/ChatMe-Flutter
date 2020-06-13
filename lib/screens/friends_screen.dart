@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../widgets/friends/friends_list.dart';
+import '../screens/add_friend_screen.dart';
 
 class FriendsScreen extends StatelessWidget {
   void _displayFriendDetail() {}
@@ -22,7 +23,9 @@ class FriendsScreen extends StatelessWidget {
                     style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                   ),
                   GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.pushNamed(context, AddFriendScreen.routeName);
+                    },
                     child: Container(
                       padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                       height: 30,

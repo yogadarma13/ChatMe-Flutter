@@ -5,6 +5,7 @@ import './screens/login_screen.dart';
 import './screens/register_screen.dart';
 import './screens/main_screen.dart';
 import './screens/room_chat_screen.dart';
+import './screens/add_friend_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -27,6 +28,12 @@ class MyApp extends StatelessWidget {
             borderRadius: BorderRadius.circular(32),
           ),
         ),
+        appBarTheme: AppBarTheme.of(context).copyWith(
+          iconTheme: IconThemeData(
+            color: Colors.black
+          ),
+          color: Colors.white
+        ),
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       debugShowCheckedModeBanner: false,
@@ -45,6 +52,7 @@ class MyApp extends StatelessWidget {
       routes: {
         RegisterScreen.routeName: (ctx) => RegisterScreen(),
         RoomChatScreen.routeName: (ctx) => RoomChatScreen(),
+        AddFriendScreen.routeName: (ctx) => AddFriendScreen(),
       },
     );
   }
