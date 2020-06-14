@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../widgets/friends/friends_list.dart';
-import '../screens/add_friend_screen.dart';
+import '../widgets/friends/popup_menu_friend.dart';
+// import '../screens/add_friend_screen.dart';
 
 class FriendsScreen extends StatelessWidget {
   void _displayFriendDetail() {}
@@ -22,36 +23,42 @@ class FriendsScreen extends StatelessWidget {
                     'Friends',
                     style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                   ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.pushNamed(context, AddFriendScreen.routeName);
-                    },
-                    child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-                      height: 30,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(30),
-                        color: Colors.blue[50],
-                      ),
-                      child: Row(
-                        children: <Widget>[
-                          Icon(
-                            Icons.add,
-                            color: Theme.of(context).primaryColor,
-                            size: 20,
-                          ),
-                          SizedBox(
-                            width: 2,
-                          ),
-                          Text(
-                            'New Friend',
-                            style: TextStyle(
-                                fontSize: 14, fontWeight: FontWeight.bold),
-                          )
-                        ],
-                      ),
-                    ),
-                  )
+                  PopupMenuFriend()
+                  // PopupMenuButton(itemBuilder: (context) =>[
+                  //   PopupMenuItem(
+                  //     // child: Icon(Icons.lis,
+                  //   )
+                  // ] ,)
+                  // GestureDetector(
+                  //   onTap: () {
+                  //     Navigator.pushNamed(context, AddFriendScreen.routeName);
+                  //   },
+                  //   child: Container(
+                  //     padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                  //     height: 30,
+                  //     decoration: BoxDecoration(
+                  //       borderRadius: BorderRadius.circular(30),
+                  //       color: Colors.blue[50],
+                  //     ),
+                  //     child: Row(
+                  //       children: <Widget>[
+                  //         Icon(
+                  //           Icons.add,
+                  //           color: Theme.of(context).primaryColor,
+                  //           size: 20,
+                  //         ),
+                  //         SizedBox(
+                  //           width: 2,
+                  //         ),
+                  //         Text(
+                  //           'New Friend',
+                  //           style: TextStyle(
+                  //               fontSize: 14, fontWeight: FontWeight.bold),
+                  //         )
+                  //       ],
+                  //     ),
+                  //   ),
+                  // )
                 ],
               ),
             ),

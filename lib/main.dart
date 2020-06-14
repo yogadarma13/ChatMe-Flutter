@@ -6,6 +6,7 @@ import './screens/register_screen.dart';
 import './screens/main_screen.dart';
 import './screens/room_chat_screen.dart';
 import './screens/add_friend_screen.dart';
+import './screens/friend_request_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -53,6 +54,7 @@ class MyApp extends StatelessWidget {
         RegisterScreen.routeName: (ctx) => RegisterScreen(),
         RoomChatScreen.routeName: (ctx) => RoomChatScreen(),
         AddFriendScreen.routeName: (ctx) => AddFriendScreen(),
+        FriendRequestScreen.routeName: (ctx) => FriendRequestScreen(),
       },
     );
   }
