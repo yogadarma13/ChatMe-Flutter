@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-import './button_submit.dart';
+import '../rounded_button.dart';
 
 class RegisterForm extends StatefulWidget {
-  final void Function(String username, String phoneNumber, String email, String password, BuildContext ctx)
-      userRegister;
-  
+  final void Function(String username, String phoneNumber, String email,
+      String password, BuildContext ctx) userRegister;
+
   final bool isLoading;
 
   RegisterForm(this.userRegister, this.isLoading);
@@ -44,7 +44,8 @@ class _RegisterFormState extends State<RegisterForm> {
         );
         return;
       }
-      widget.userRegister(_username, _userPhoneNumber, _userEmail, _userPassword, context);
+      widget.userRegister(
+          _username, _userPhoneNumber, _userEmail, _userPassword, context);
     }
   }
 
@@ -142,7 +143,13 @@ class _RegisterFormState extends State<RegisterForm> {
           SizedBox(
             height: 32,
           ),
-          widget.isLoading ? Center(child: CircularProgressIndicator()) : ButtonSubmit(_userSubmit, false)
+          widget.isLoading
+              ? Center(child: CircularProgressIndicator())
+              : RoundedButton(
+                  'Register',
+                  Theme.of(context).primaryColor,
+                  _userSubmit,
+                )
         ],
       ),
     );

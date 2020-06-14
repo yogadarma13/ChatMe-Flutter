@@ -5,7 +5,7 @@ import '../widgets/friends/popup_menu_friend.dart';
 // import '../screens/add_friend_screen.dart';
 
 class FriendsScreen extends StatelessWidget {
-  void _displayFriendDetail() {}
+  void _displayFriendDetail(String userId, String userName, String imageUrl) {}
 
   void _navigateMenuFriend(String route, BuildContext ctx) {
     Navigator.pushNamed(ctx, route);

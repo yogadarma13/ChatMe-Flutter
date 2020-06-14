@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import './button_submit.dart';
+import '../rounded_button.dart';
 
 class LoginForm extends StatefulWidget {
   final void Function(
@@ -88,7 +88,11 @@ class _LoginFormState extends State<LoginForm> {
           ),
           widget.isLoading
               ? Center(child: CircularProgressIndicator())
-              : ButtonSubmit(_userSubmit, true),
+              : RoundedButton(
+                  'Login',
+                  Theme.of(context).primaryColor,
+                  _userSubmit,
+                ),
           SizedBox(
             height: 24,
           ),

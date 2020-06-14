@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 
-class ButtonSubmit extends StatelessWidget {
+class RoundedButton extends StatelessWidget {
+  final String textButton;
+  final Color colorButon;
   final void Function() submit;
-  final bool isLogin;
 
-  ButtonSubmit(this.submit, this.isLogin);
+  RoundedButton(this.textButton, this.colorButon, this.submit);
   
   @override
   Widget build(BuildContext context) {
     return RaisedButton(
       padding: EdgeInsets.symmetric(vertical: 16),
+      color: colorButon,
       onPressed: submit,
-      child: Text(isLogin ? 'Masuk' : 'Register'),
+      child: Text(textButton),
     );
   }
 }

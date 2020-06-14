@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class FriendsList extends StatelessWidget {
-  final Function eventClickFriend;
+  final void Function(String userId, String userName, String imageUrl) eventClickFriend;
   final bool statusFriend;
 
   FriendsList(this.eventClickFriend, this.statusFriend);
@@ -55,12 +55,14 @@ class FriendsList extends StatelessWidget {
                       leading: CircleAvatar(
                         maxRadius: 30,
                         backgroundImage: NetworkImage(
-                            'https://www.biography.com/.image/t_share/MTM2OTI2NTY2Mjg5NTE2MTI5/justin_bieber_2015_photo_courtesy_dfree_shutterstock_348418241_croppedjpg.jpg'),
+                            friendData[0]['imageUrl']),
                       ),
                       // Kenapa indexnya dibuat 0 karena pada kasus ini stream akan menghasilkan array yg jumlahnya cuma 1 karena ketika
                       // data uid didapatkan maka langsung dimasukan ke list tile setelah itu baru akan dilakukan pencarian untuk uid selanjutnya
                       title: Text(friendData[0]['username']),
-                      onTap: () {},
+                      onTap: () {
+                        eventClickFriend(friendData[0]['userId'], friendData[0]['username'], friendData[0]['imageUrl']);
+                      },
                     );
                   },
                 );
