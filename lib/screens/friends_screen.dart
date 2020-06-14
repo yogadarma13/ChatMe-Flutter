@@ -7,6 +7,10 @@ import '../widgets/friends/popup_menu_friend.dart';
 class FriendsScreen extends StatelessWidget {
   void _displayFriendDetail() {}
 
+  void _navigateMenuFriend(String route, BuildContext ctx) {
+    Navigator.pushNamed(ctx, route);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,7 +27,7 @@ class FriendsScreen extends StatelessWidget {
                     'Friends',
                     style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                   ),
-                  PopupMenuFriend()
+                  PopupMenuFriend(_navigateMenuFriend)
                   // PopupMenuButton(itemBuilder: (context) =>[
                   //   PopupMenuItem(
                   //     // child: Icon(Icons.lis,
@@ -90,7 +94,7 @@ class FriendsScreen extends StatelessWidget {
             ),
           ),
           Expanded(
-            child: FriendsList(_displayFriendDetail),
+            child: FriendsList(_displayFriendDetail, true),
           ),
         ],
       ),

@@ -28,6 +28,10 @@ import '../../screens/friend_request_screen.dart';
 // ];
 
 class PopupMenuFriend extends StatelessWidget {
+  final void Function(String value, BuildContext ctx) navigateMenuFriend;
+
+  PopupMenuFriend(this.navigateMenuFriend);
+
   @override
   Widget build(BuildContext context) {
     return PopupMenuButton(
@@ -53,7 +57,7 @@ class PopupMenuFriend extends StatelessWidget {
       //     )
       //     .toList(),
       onSelected: (value) {
-        Navigator.pushNamed(context, value);
+        navigateMenuFriend(value, context);
       },
     );
   }
