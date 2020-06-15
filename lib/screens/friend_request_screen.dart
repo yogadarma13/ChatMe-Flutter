@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import '../widgets/friends/friends_list.dart';
 import '../screens/add_friend_screen.dart';
-import '../widgets/friends/popup_action_friend_request.dart';
+import '../widgets/friends/popup_action_friend.dart';
 
 class FriendRequestScreen extends StatefulWidget {
   static const routeName = '/friend-request-screen';
@@ -35,11 +35,15 @@ class _FriendRequestScreenState extends State<FriendRequestScreen> {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),
           ),
-          child: PopupActionFriendRequest(
+          child: PopupActionFriend(
             username: username,
             imageUrl: imageUrl,
-            acceptFriend: _acceptFriend,
-            declineFriend: _declineFriend,
+            positiveFunc: _acceptFriend,
+            negativeFunc: _declineFriend,
+            textPositiveButton: 'Accept',
+            textNegativeButton: 'Decline',
+            colorPositiveButton: Colors.green,
+            colorNegativeButton: Colors.red,
             // isLoading: null,
           ),
         );

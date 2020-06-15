@@ -2,18 +2,26 @@ import 'package:flutter/material.dart';
 
 import '../rounded_button.dart';
 
-class PopupActionFriendRequest extends StatelessWidget {
+class PopupActionFriend extends StatelessWidget {
   final String username;
   final String imageUrl;
-  final void Function() acceptFriend;
-  final void Function() declineFriend;
+  final void Function() positiveFunc;
+  final void Function() negativeFunc;
+  final String textPositiveButton;
+  final String textNegativeButton;
+  final Color colorPositiveButton;
+  final Color colorNegativeButton;
   // final bool isLoading;
 
-  PopupActionFriendRequest({
+  PopupActionFriend({
     @required this.username,
     @required this.imageUrl,
-    @required this.acceptFriend,
-    @required this.declineFriend,
+    @required this.positiveFunc,
+    @required this.negativeFunc,
+    @required this.textPositiveButton,
+    @required this.textNegativeButton,
+    @required this.colorPositiveButton,
+    @required this.colorNegativeButton
     // @required this.isLoading
   });
 
@@ -63,9 +71,9 @@ class PopupActionFriendRequest extends StatelessWidget {
             children: <Widget>[
               Expanded(
                 child: RoundedButton(
-                  'Decline',
-                  Colors.red,
-                  declineFriend,
+                  textNegativeButton,
+                  colorNegativeButton,
+                  negativeFunc,
                 ),
               ),
               SizedBox(
@@ -73,9 +81,9 @@ class PopupActionFriendRequest extends StatelessWidget {
               ),
               Expanded(
                 child: RoundedButton(
-                  'Accept',
-                  Colors.green,
-                  acceptFriend,
+                  textPositiveButton,
+                  colorPositiveButton,
+                  positiveFunc,
                 ),
               ),
             ],
