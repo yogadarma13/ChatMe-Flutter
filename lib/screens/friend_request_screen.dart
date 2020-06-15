@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../widgets/friends/friends_list.dart';
 import '../screens/add_friend_screen.dart';
@@ -12,22 +13,44 @@ class FriendRequestScreen extends StatefulWidget {
 }
 
 class _FriendRequestScreenState extends State<FriendRequestScreen> {
-  var _userId;
+  var _friendId = '';
+  FirebaseUser _user;
 
   void _acceptFriend() async {
-    try {
-      // await Firestore.instance.document('users').collection()
-    } catch (error) {}
+    print(_friendId);
+    print(_user.uid);
+    // try {
+    await Firestore.instance
+        .collection('users')
+        .document(_user.uid)
+        .collection('friends')
+        .document(_friendId)
+        .updateData(
+          {
+            'friendStatus': true,
+          },
+        )
+        .then(
+          (_) => Navigator.pop(context),
+        )
+        .catchError(
+          (error) {
+            print(error);
+            Navigator.pop(context);
+          },
+        );
+    // } catch (error) {}
   }
 
   void _declineFriend() async {}
 
   void _displayDetailFriendRequest(
-    String userId,
+    String friendId,
     String username,
     String imageUrl,
-  ) {
-    _userId = userId;
+  ) async {
+    _user = await FirebaseAuth.instance.currentUser();
+    _friendId = friendId;
     showDialog(
       context: context,
       builder: (context) {

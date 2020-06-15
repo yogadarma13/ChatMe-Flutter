@@ -11,18 +11,18 @@ class FriendsScreen extends StatefulWidget {
 }
 
 class _FriendsScreenState extends State<FriendsScreen> {
-  var _userId;
+  var _friendId;
 
   void _chatFriend() async {}
 
   void _profileFriend() async {}
 
   void _displayFriendDetail(
-    String userId,
+    String friendId,
     String username,
     String imageUrl,
   ) {
-    _userId = userId;
+    _friendId = friendId;
     showDialog(
       context: context,
       builder: (context) {
