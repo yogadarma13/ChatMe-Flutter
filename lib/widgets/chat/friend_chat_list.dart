@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 
 import '../../screens/room_chat_screen.dart';
 
-class ChatList extends StatefulWidget {
+class FriendChatList extends StatefulWidget {
   final String userName;
   final String message;
   final String image;
   final String time;
 
-  ChatList({
+  FriendChatList({
     @required this.userName,
     @required this.message,
     @required this.image,
@@ -16,10 +16,10 @@ class ChatList extends StatefulWidget {
   });
 
   @override
-  _ChatListState createState() => _ChatListState();
+  _FriendChatListState createState() => _FriendChatListState();
 }
 
-class _ChatListState extends State<ChatList> {
+class _FriendChatListState extends State<FriendChatList> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(

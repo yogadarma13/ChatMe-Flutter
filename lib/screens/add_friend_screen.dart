@@ -66,7 +66,7 @@ class _AddFriendScreenState extends State<AddFriendScreen> {
           .document(user.uid)
           .setData(
         {
-          'friendStatus': false,
+          'friendStatus': 0,
           'userId': user.uid,
         },
       );
@@ -78,7 +78,7 @@ class _AddFriendScreenState extends State<AddFriendScreen> {
           .document(_friendData.documents[0]['userId'])
           .setData(
         {
-          'friendStatus': true,
+          'friendStatus': 1,
           'userId': _friendData.documents[0]['userId'],
         },
       );

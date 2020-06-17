@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import '../widgets/friends/friends_list.dart';
 import '../widgets/friends/popup_menu_friend.dart';
 import '../widgets/friends/popup_action_friend.dart';
+import './room_chat_screen.dart';
+import '../models/friend.dart';
 // import '../screens/add_friend_screen.dart';
 
 class FriendsScreen extends StatefulWidget {
@@ -11,18 +13,18 @@ class FriendsScreen extends StatefulWidget {
 }
 
 class _FriendsScreenState extends State<FriendsScreen> {
-  var _friendId;
+  Friend _friend;
 
-  void _chatFriend() async {}
+  void _chatFriend() {
+    Navigator.pop(context);
+    Navigator.pushNamed(context, RoomChatScreen.routeName, arguments: _friend);
+  }
 
   void _profileFriend() async {}
 
-  void _displayFriendDetail(
-    String friendId,
-    String username,
-    String imageUrl,
-  ) {
-    _friendId = friendId;
+  void _displayFriendDetail(Friend friend) async {
+    // _user = await FirebaseAuth.instance.currentUser();
+    _friend = friend;
     showDialog(
       context: context,
       builder: (context) {
@@ -31,8 +33,8 @@ class _FriendsScreenState extends State<FriendsScreen> {
             borderRadius: BorderRadius.circular(20),
           ),
           child: PopupActionFriend(
-            username: username,
-            imageUrl: imageUrl,
+            username: friend.username,
+            imageUrl: friend.imageUrl,
             positiveFunc: _chatFriend,
             negativeFunc: _profileFriend,
             textPositiveButton: 'Chat',
@@ -133,7 +135,7 @@ class _FriendsScreenState extends State<FriendsScreen> {
             ),
           ),
           Expanded(
-            child: FriendsList(_displayFriendDetail, true),
+            child: FriendsList(_displayFriendDetail, 1),
           ),
         ],
       ),

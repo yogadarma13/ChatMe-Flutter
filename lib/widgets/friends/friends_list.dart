@@ -2,9 +2,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+import '../../models/friend.dart';
+
 class FriendsList extends StatelessWidget {
-  final void Function(String userId, String userName, String imageUrl) eventClickFriend;
-  final bool statusFriend;
+  final void Function(Friend friend) eventClickFriend;
+  final int statusFriend;
 
   FriendsList(this.eventClickFriend, this.statusFriend);
 
@@ -49,19 +51,20 @@ class FriendsList extends StatelessWidget {
                       );
                     }
                     print("stream 2");
-                    final friendData = dataFriendSnapshot.data.documents;
+                    final fr = Friend.fromSnapshot(
+                        dataFriendSnapshot.data.documents[0]);
                     return ListTile(
-                      contentPadding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                      contentPadding: const EdgeInsets.symmetric(
+                          vertical: 8, horizontal: 16),
                       leading: CircleAvatar(
                         maxRadius: 30,
-                        backgroundImage: NetworkImage(
-                            friendData[0]['imageUrl']),
+                        backgroundImage: NetworkImage(fr.imageUrl),
                       ),
                       // Kenapa indexnya dibuat 0 karena pada kasus ini stream akan menghasilkan array yg jumlahnya cuma 1 karena ketika
                       // data uid didapatkan maka langsung dimasukan ke list tile setelah itu baru akan dilakukan pencarian untuk uid selanjutnya
-                      title: Text(friendData[0]['username']),
+                      title: Text(fr.username),
                       onTap: () {
-                        eventClickFriend(friendData[0]['userId'], friendData[0]['username'], friendData[0]['imageUrl']);
+                        eventClickFriend(fr);
                       },
                     );
                   },

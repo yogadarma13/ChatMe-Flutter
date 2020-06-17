@@ -25,7 +25,7 @@ class PopupActionFriend extends StatelessWidget {
     // @required this.isLoading
   });
 
-  void _cencelDialod(BuildContext ctx) {
+  void _dismissDialod(BuildContext ctx) {
     Navigator.pop(ctx);
   }
 
@@ -40,7 +40,7 @@ class PopupActionFriend extends StatelessWidget {
           Align(
             alignment: Alignment.topRight,
             child: GestureDetector(
-              onTap: () => _cencelDialod(context),
+              onTap: () => _dismissDialod(context),
               child: Container(
                 padding: EdgeInsets.all(4),
                 decoration: BoxDecoration(

@@ -5,6 +5,8 @@ import '../widgets/friends/friends_list.dart';
 import '../screens/add_friend_screen.dart';
 import '../widgets/friends/popup_action_friend.dart';
 
+import '../models/friend.dart';
+
 class FriendRequestScreen extends StatefulWidget {
   static const routeName = '/friend-request-screen';
 
@@ -13,21 +15,19 @@ class FriendRequestScreen extends StatefulWidget {
 }
 
 class _FriendRequestScreenState extends State<FriendRequestScreen> {
-  var _friendId = '';
+  Friend _friend;
   FirebaseUser _user;
 
   void _acceptFriend() async {
-    print(_friendId);
-    print(_user.uid);
     // try {
     await Firestore.instance
         .collection('users')
         .document(_user.uid)
         .collection('friends')
-        .document(_friendId)
+        .document(_friend.userId)
         .updateData(
           {
-            'friendStatus': true,
+            'friendStatus': 1,
           },
         )
         .then(
@@ -42,15 +42,31 @@ class _FriendRequestScreenState extends State<FriendRequestScreen> {
     // } catch (error) {}
   }
 
-  void _declineFriend() async {}
+  void _declineFriend() async {
+    await Firestore.instance
+        .collection('users')
+        .document(_user.uid)
+        .collection('friends')
+        .document(_friend.userId)
+        .updateData(
+          {
+            'friendStatus': 2,
+          },
+        )
+        .then(
+          (_) => Navigator.pop(context),
+        )
+        .catchError(
+          (error) {
+            print(error);
+            Navigator.pop(context);
+          },
+        );
+  }
 
-  void _displayDetailFriendRequest(
-    String friendId,
-    String username,
-    String imageUrl,
-  ) async {
+  void _displayDetailFriendRequest(Friend friend) async {
     _user = await FirebaseAuth.instance.currentUser();
-    _friendId = friendId;
+    _friend = friend;
     showDialog(
       context: context,
       builder: (context) {
@@ -59,8 +75,8 @@ class _FriendRequestScreenState extends State<FriendRequestScreen> {
             borderRadius: BorderRadius.circular(20),
           ),
           child: PopupActionFriend(
-            username: username,
-            imageUrl: imageUrl,
+            username: friend.username,
+            imageUrl: friend.imageUrl,
             positiveFunc: _acceptFriend,
             negativeFunc: _declineFriend,
             textPositiveButton: 'Accept',
@@ -95,7 +111,7 @@ class _FriendRequestScreenState extends State<FriendRequestScreen> {
           ),
         ],
       ),
-      body: FriendsList(_displayDetailFriendRequest, false),
+      body: FriendsList(_displayDetailFriendRequest, 0),
     );
   }
 }

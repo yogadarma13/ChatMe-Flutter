@@ -1,8 +1,10 @@
+import 'package:chat_me/models/friend.dart';
 import 'package:flutter/material.dart';
 
 class RoomChatAppbar extends StatelessWidget implements PreferredSizeWidget {
-  final String username;
-  RoomChatAppbar(this.username);
+  final Friend dataFriend;
+
+  RoomChatAppbar(this.dataFriend);
 
   @override
   Widget build(BuildContext context) {
@@ -25,8 +27,7 @@ class RoomChatAppbar extends StatelessWidget implements PreferredSizeWidget {
                 width: 6,
               ),
               CircleAvatar(
-                backgroundImage: NetworkImage(
-                    'https://www.biography.com/.image/t_share/MTM2OTI2NTY2Mjg5NTE2MTI5/justin_bieber_2015_photo_courtesy_dfree_shutterstock_348418241_croppedjpg.jpg'),
+                backgroundImage: NetworkImage(dataFriend.imageUrl),
                 maxRadius: 20,
               ),
               SizedBox(
@@ -38,7 +39,7 @@ class RoomChatAppbar extends StatelessWidget implements PreferredSizeWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Text(
-                      username,
+                      dataFriend.username,
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
                       ),

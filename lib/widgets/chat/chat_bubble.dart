@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 class ChatBubble extends StatefulWidget {
   final String message;
   final bool isMe;
-  final String imageUrl;
+  final Key key;
 
-  ChatBubble(this.message, this.isMe, this.imageUrl);
+  ChatBubble(this.message, this.isMe, {this.key});
 
   @override
   _ChatBubbleState createState() => _ChatBubbleState();
