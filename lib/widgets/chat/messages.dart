@@ -25,7 +25,7 @@ class Messages extends StatelessWidget {
               .collection('messages')
               .document(user.uid)
               .collection(friend.userId)
-              .orderBy('createdAt', descending: false)
+              .orderBy('createdAt', descending: true)
               .snapshots(),
           builder: (ctx, messageSnapshot) {
             if (messageSnapshot.connectionState == ConnectionState.waiting) {
@@ -36,6 +36,7 @@ class Messages extends StatelessWidget {
             final messages =
                 messageSnapshot.data.documents as List<DocumentSnapshot>;
             return ListView.builder(
+              reverse: true,
               itemCount: messages.length,
               itemBuilder: (ctx, index) => ChatBubble(
                 messages[index]['message'],

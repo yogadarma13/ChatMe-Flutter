@@ -54,8 +54,6 @@ class _NewMesssageState extends State<NewMesssage> {
       print(error);
     }
 
-    print(_enteredMessage);
-
     _inputMessageController.clear();
     setState(() {
       _enteredMessage = '';
