@@ -19,7 +19,7 @@ class RoomChatScreen extends StatelessWidget {
           Expanded(
             child: Messages(_dataFriend),
           ),
-          NewMesssage()
+          NewMesssage(_dataFriend),
         ],
       ),
     );

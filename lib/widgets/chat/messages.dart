@@ -25,7 +25,7 @@ class Messages extends StatelessWidget {
               .collection('messages')
               .document(user.uid)
               .collection(friend.userId)
-              .orderBy('createAt', descending: false)
+              .orderBy('createdAt', descending: false)
               .snapshots(),
           builder: (ctx, messageSnapshot) {
             if (messageSnapshot.connectionState == ConnectionState.waiting) {
