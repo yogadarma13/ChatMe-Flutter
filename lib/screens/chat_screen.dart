@@ -127,7 +127,7 @@ class ChatScreen extends StatelessWidget {
                             arguments: 'Yoga Darma Putra');
                       },
                       leading: CircleAvatar(
-                        maxRadius: 30,
+                        radius: 30,
                         backgroundImage: NetworkImage(
                             'https://www.biography.com/.image/t_share/MTM2OTI2NTY2Mjg5NTE2MTI5/justin_bieber_2015_photo_courtesy_dfree_shutterstock_348418241_croppedjpg.jpg'),
                       ),

@@ -27,8 +27,11 @@ class RoomChatAppbar extends StatelessWidget implements PreferredSizeWidget {
                 width: 6,
               ),
               CircleAvatar(
-                backgroundImage: NetworkImage(dataFriend.imageUrl),
-                maxRadius: 20,
+                radius: 20,
+                backgroundColor: Colors.grey.shade200,
+                backgroundImage: dataFriend.imageUrl.isEmpty
+                    ? AssetImage('assets/images/default_avatar.png')
+                    : NetworkImage(dataFriend.imageUrl),
               ),
               SizedBox(
                 width: 12,
@@ -39,7 +42,7 @@ class RoomChatAppbar extends StatelessWidget implements PreferredSizeWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Text(
-                      dataFriend.username,
+                      dataFriend.name,
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
                       ),

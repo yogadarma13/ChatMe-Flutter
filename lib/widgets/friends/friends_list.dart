@@ -51,20 +51,23 @@ class FriendsList extends StatelessWidget {
                       );
                     }
                     print("stream 2");
-                    final fr = Friend.fromSnapshot(
+                    final dataFriend = Friend.fromSnapshot(
                         dataFriendSnapshot.data.documents[0]);
                     return ListTile(
                       contentPadding: const EdgeInsets.symmetric(
                           vertical: 8, horizontal: 16),
                       leading: CircleAvatar(
-                        maxRadius: 30,
-                        backgroundImage: NetworkImage(fr.imageUrl),
+                        radius: 30,
+                        backgroundColor: Colors.grey.shade200,
+                        backgroundImage: dataFriend.imageUrl.isEmpty
+                            ? AssetImage('assets/images/default_avatar.png')
+                            : NetworkImage(dataFriend.imageUrl),
                       ),
                       // Kenapa indexnya dibuat 0 karena pada kasus ini stream akan menghasilkan array yg jumlahnya cuma 1 karena ketika
                       // data uid didapatkan maka langsung dimasukan ke list tile setelah itu baru akan dilakukan pencarian untuk uid selanjutnya
-                      title: Text(fr.username),
+                      title: Text(dataFriend.name),
                       onTap: () {
-                        eventClickFriend(fr);
+                        eventClickFriend(dataFriend);
                       },
                     );
                   },

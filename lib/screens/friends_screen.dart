@@ -33,7 +33,7 @@ class _FriendsScreenState extends State<FriendsScreen> {
             borderRadius: BorderRadius.circular(20),
           ),
           child: PopupActionFriend(
-            username: friend.username,
+            name: friend.name,
             imageUrl: friend.imageUrl,
             positiveFunc: _chatFriend,
             negativeFunc: _profileFriend,

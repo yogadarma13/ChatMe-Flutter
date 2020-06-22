@@ -75,7 +75,7 @@ class _FriendRequestScreenState extends State<FriendRequestScreen> {
             borderRadius: BorderRadius.circular(20),
           ),
           child: PopupActionFriend(
-            username: friend.username,
+            name: friend.name,
             imageUrl: friend.imageUrl,
             positiveFunc: _acceptFriend,
             negativeFunc: _declineFriend,

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../rounded_button.dart';
 
 class RegisterForm extends StatefulWidget {
-  final void Function(String username, String phoneNumber, String email,
+  final void Function(String name, String phoneNumber, String email,
       String password, BuildContext ctx) userRegister;
 
   final bool isLoading;
@@ -21,7 +21,7 @@ class _RegisterFormState extends State<RegisterForm> {
   final _confirmPasswordFocusNode = FocusNode();
   final _formKey = GlobalKey<FormState>();
 
-  var _username = '';
+  var _name = '';
   var _userPhoneNumber = '';
   var _userEmail = '';
   var _userPassword = '';
@@ -38,14 +38,14 @@ class _RegisterFormState extends State<RegisterForm> {
         Scaffold.of(context).hideCurrentSnackBar();
         Scaffold.of(context).showSnackBar(
           SnackBar(
-            content: Text('Password tidak sama'),
+            content: Text('Password not same'),
             backgroundColor: Theme.of(context).errorColor,
           ),
         );
         return;
       }
       widget.userRegister(
-          _username, _userPhoneNumber, _userEmail, _userPassword, context);
+          _name, _userPhoneNumber, _userEmail, _userPassword, context);
     }
   }
 
@@ -57,10 +57,10 @@ class _RegisterFormState extends State<RegisterForm> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           TextFormField(
-            decoration: InputDecoration(labelText: 'Nama'),
+            decoration: InputDecoration(labelText: 'Name'),
             validator: (value) {
               if (value.isEmpty) {
-                return 'Masukkan nama anda';
+                return 'Please enter your name.';
               }
               return null;
             },
@@ -69,16 +69,17 @@ class _RegisterFormState extends State<RegisterForm> {
               FocusScope.of(context).requestFocus(_phoneNumberFocusNode);
             },
             onSaved: (value) {
-              _username = value;
+              _name = value;
             },
           ),
           TextFormField(
             keyboardType: TextInputType.number,
             focusNode: _phoneNumberFocusNode,
-            decoration: InputDecoration(labelText: 'No Telephone'),
+            decoration: InputDecoration(labelText: 'Phone Number'),
             validator: (value) {
-              if (value.isEmpty || value.length <= 10) {
-                return 'Masukkan no telephone yang valid';
+              if (value.isEmpty || value.length < 10) {
+                print(value.length);
+                return 'Please enter a valid phone number.';
               }
               return null;
             },
@@ -96,7 +97,7 @@ class _RegisterFormState extends State<RegisterForm> {
             decoration: InputDecoration(labelText: 'Email'),
             validator: (value) {
               if (value.isEmpty || !value.contains('@')) {
-                return 'Masukkan email yang valid';
+                return 'Please enter a valid email address.';
               }
               return null;
             },
@@ -114,7 +115,7 @@ class _RegisterFormState extends State<RegisterForm> {
             decoration: InputDecoration(labelText: 'Password'),
             validator: (value) {
               if (value.isEmpty || value.length <= 7) {
-                return 'Masukkan password minimal 7 karakter';
+                return 'Please enter at least 7 characters.';
               }
               return null;
             },
@@ -129,10 +130,10 @@ class _RegisterFormState extends State<RegisterForm> {
           TextFormField(
             obscureText: true,
             focusNode: _confirmPasswordFocusNode,
-            decoration: InputDecoration(labelText: 'Ulangi Password'),
+            decoration: InputDecoration(labelText: 'Confirm Password'),
             validator: (value) {
               if (value.isEmpty) {
-                return 'Ulangi password anda';
+                return 'Repeat your password.';
               }
               return null;
             },

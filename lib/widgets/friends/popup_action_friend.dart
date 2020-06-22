@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../rounded_button.dart';
 
 class PopupActionFriend extends StatelessWidget {
-  final String username;
+  final String name;
   final String imageUrl;
   final void Function() positiveFunc;
   final void Function() negativeFunc;
@@ -13,17 +13,17 @@ class PopupActionFriend extends StatelessWidget {
   final Color colorNegativeButton;
   // final bool isLoading;
 
-  PopupActionFriend({
-    @required this.username,
-    @required this.imageUrl,
-    @required this.positiveFunc,
-    @required this.negativeFunc,
-    @required this.textPositiveButton,
-    @required this.textNegativeButton,
-    @required this.colorPositiveButton,
-    @required this.colorNegativeButton
-    // @required this.isLoading
-  });
+  PopupActionFriend(
+      {@required this.name,
+      @required this.imageUrl,
+      @required this.positiveFunc,
+      @required this.negativeFunc,
+      @required this.textPositiveButton,
+      @required this.textNegativeButton,
+      @required this.colorPositiveButton,
+      @required this.colorNegativeButton
+      // @required this.isLoading
+      });
 
   void _dismissDialod(BuildContext ctx) {
     Navigator.pop(ctx);
@@ -59,13 +59,16 @@ class PopupActionFriend extends StatelessWidget {
             margin: EdgeInsets.only(top: 45),
             child: CircleAvatar(
               maxRadius: 50,
-              backgroundImage: NetworkImage(imageUrl),
+              backgroundColor: Colors.grey.shade200,
+              backgroundImage: imageUrl.isEmpty
+                  ? AssetImage('assets/images/default_avatar.png')
+                  : NetworkImage(imageUrl),
             ),
           ),
           Container(
             alignment: Alignment.center,
             margin: EdgeInsets.only(top: 16, bottom: 45),
-            child: Text(username),
+            child: Text(name),
           ),
           Row(
             children: <Widget>[

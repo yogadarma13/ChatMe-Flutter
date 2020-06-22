@@ -11,7 +11,7 @@ class AddFriendScreen extends StatefulWidget {
 class _AddFriendScreenState extends State<AddFriendScreen> {
   final _friendIdController = TextEditingController();
   QuerySnapshot _friendData;
-  var _isInviteIdValid = false;
+  var _isIdValid = false;
   var _isLoading = false;
   var _isLoadingAddFriend = false;
 
@@ -31,12 +31,12 @@ class _AddFriendScreenState extends State<AddFriendScreen> {
       try {
         final friendData = await Firestore.instance
             .collection('users')
-            .where('inviteId', isEqualTo: _friendIdController.text)
+            .where('id', isEqualTo: _friendIdController.text)
             .getDocuments();
         if (friendData.documents.isNotEmpty) {
           setState(() {
             _isLoading = false;
-            _isInviteIdValid = true;
+            _isIdValid = true;
             _friendData = friendData;
           });
         } else {
@@ -142,20 +142,21 @@ class _AddFriendScreenState extends State<AddFriendScreen> {
                 Center(
                   child: CircularProgressIndicator(),
                 )
-              else if (!_isLoading && _isInviteIdValid)
+              else if (!_isLoading && _isIdValid)
                 Center(
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
                       CircleAvatar(
-                        maxRadius: 50,
-                        backgroundImage:
+                        radius: 50,
+                        backgroundColor: Colors.grey.shade200,
+                        backgroundImage: (_friendData.documents[0]['imageUrl'] as String).isEmpty ? AssetImage('assets/images/default_avatar.png'):
                             NetworkImage(_friendData.documents[0]['imageUrl']),
                       ),
                       Container(
                         margin: EdgeInsets.only(top: 10),
                         child: Text(
-                          _friendData.documents[0]['username'],
+                          _friendData.documents[0]['name'],
                           style: TextStyle(fontSize: 20),
                         ),
                       ),

@@ -44,7 +44,7 @@ class _LoginFormState extends State<LoginForm> {
             decoration: InputDecoration(labelText: 'Email'),
             validator: (value) {
               if (value.isEmpty || !value.contains('@')) {
-                return 'Masukkan email yang valid';
+                return 'Please enter a valid email address.';
               }
               return null;
             },
@@ -62,7 +62,7 @@ class _LoginFormState extends State<LoginForm> {
             decoration: InputDecoration(labelText: 'Password'),
             validator: (value) {
               if (value.isEmpty || value.length <= 7) {
-                return 'Masukkan password minimal 7 character';
+                return 'Please enter at least 7 characters.';
               }
               return null;
             },
@@ -76,7 +76,7 @@ class _LoginFormState extends State<LoginForm> {
             child: FlatButton(
               onPressed: () {},
               child: Text(
-                'Lupa password',
+                'Forget password',
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: Theme.of(context).primaryColor),
@@ -104,11 +104,11 @@ class _LoginFormState extends State<LoginForm> {
               Scaffold.of(context).showSnackBar(
                 SnackBar(
                   backgroundColor: Theme.of(context).primaryColor,
-                  content: Text('Segere rilis'),
+                  content: Text('Comming soon'),
                 ),
               );
             },
-            child: Text('Masuk dengan Google'),
+            child: Text('Login with Google Account'),
           )
         ],
       ),

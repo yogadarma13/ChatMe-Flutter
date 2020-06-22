@@ -17,7 +17,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   var _isLoading = false;
 
   void _userRegister(
-    String username,
+    String name,
     String phoneNumber,
     String email,
     String password,
@@ -37,9 +37,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
           .document(authResult.user.uid)
           .setData(
         {
-          'username': username,
+          'id': phoneNumber,
+          'userId': authResult.user.uid,
+          'name': name,
           'email': email,
-          'phone_number': phoneNumber,
+          'phoneNumber': phoneNumber,
+          'imageUrl':''
         },
       );
       return Navigator.pop(context);
