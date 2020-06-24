@@ -1,9 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+
 import '../widgets/profile/data_profile.dart';
 import '../models/user.dart';
 import '../widgets/rounded_button.dart';
+import './edit_profile_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
 
@@ -53,7 +55,9 @@ class ProfileScreen extends StatelessWidget {
                                   color: Colors.white),
                             ),
                             GestureDetector(
-                              onTap: () {},
+                              onTap: () {
+                                Navigator.pushNamed(context, EditProfileScreen.routeName, arguments: userData);
+                              },
                               child: Container(
                                 padding: EdgeInsets.symmetric(
                                     horizontal: 8, vertical: 2),
