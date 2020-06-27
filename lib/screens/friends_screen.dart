@@ -22,7 +22,7 @@ class _FriendsScreenState extends State<FriendsScreen> {
 
   void _profileFriend() async {}
 
-  void _displayFriendDetail(Friend friend) async {
+  void _showFriendDetail(Friend friend) async {
     // _user = await FirebaseAuth.instance.currentUser();
     _friend = friend;
     showDialog(
@@ -135,7 +135,7 @@ class _FriendsScreenState extends State<FriendsScreen> {
             ),
           ),
           Expanded(
-            child: FriendsList(_displayFriendDetail, 1),
+            child: FriendsList(_showFriendDetail, 1),
           ),
         ],
       ),

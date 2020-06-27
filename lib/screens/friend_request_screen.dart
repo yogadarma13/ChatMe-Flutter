@@ -64,7 +64,7 @@ class _FriendRequestScreenState extends State<FriendRequestScreen> {
         );
   }
 
-  void _displayDetailFriendRequest(Friend friend) async {
+  void _showDetailFriendRequest(Friend friend) async {
     _user = await FirebaseAuth.instance.currentUser();
     _friend = friend;
     showDialog(
@@ -111,7 +111,7 @@ class _FriendRequestScreenState extends State<FriendRequestScreen> {
           ),
         ],
       ),
-      body: FriendsList(_displayDetailFriendRequest, 0),
+      body: FriendsList(_showDetailFriendRequest, 0),
     );
   }
 }

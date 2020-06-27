@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../widgets/rounded_button.dart';
+import '../widgets/profile/popup_option_edit_profile_image.dart';
 
 class EditProfileScreen extends StatefulWidget {
   static const routeName = '/edit-profile-screen';
@@ -23,10 +24,23 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   var _name = '';
   var _phoneNumber = '';
 
+  var _isLoading = false;
+
   File _image;
   final picker = ImagePicker();
 
-  Future _pickImage() async {
+  Future _pickImageFromCamera() async {
+    Navigator.pop(context);
+    final pickedFile =
+        await picker.getImage(source: ImageSource.camera, imageQuality: 30);
+
+    setState(() {
+      _image = File(pickedFile.path);
+    });
+  }
+
+  Future _pickImageFromGalery() async {
+    Navigator.pop(context);
     final pickedFile =
         await picker.getImage(source: ImageSource.gallery, imageQuality: 30);
 
@@ -35,9 +49,27 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     });
   }
 
+  void _showOptionsEditProfileImage() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: PopupOptionEditProfileImage(
+              _pickImageFromCamera, _pickImageFromGalery),
+        );
+      },
+    );
+  }
+
   Future _updateProfile() async {
     final isValid = _formEditKey.currentState.validate();
     if (isValid) {
+      setState(() {
+        _isLoading = true;
+      });
       try {
         _formEditKey.currentState.save();
 
@@ -68,6 +100,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             backgroundColor: Theme.of(context).errorColor,
           ),
         );
+      } finally {
+        Navigator.pop(context);
       }
     }
   }
@@ -92,7 +126,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             Container(
               margin: EdgeInsets.symmetric(vertical: 40),
               child: GestureDetector(
-                onTap: _pickImage,
+                onTap: _showOptionsEditProfileImage,
                 child: CircleAvatar(
                   radius: 50,
                   backgroundColor: Colors.grey.shade200,
@@ -156,11 +190,13 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   SizedBox(
                     height: 32,
                   ),
-                  RoundedButton(
-                    'Update profile',
-                    Theme.of(context).primaryColor,
-                    _updateProfile,
-                  )
+                  _isLoading
+                      ? Center(child: CircularProgressIndicator())
+                      : RoundedButton(
+                          'Update profile',
+                          Theme.of(context).primaryColor,
+                          _updateProfile,
+                        )
                 ],
               ),
             )
