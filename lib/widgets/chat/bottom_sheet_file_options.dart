@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class PopupOptionEditProfileImage extends StatelessWidget {
+class BottomSheetFileOptions extends StatelessWidget {
   final Function openCamera;
   final Function openGalery;
 
-  PopupOptionEditProfileImage(this.openCamera, this.openGalery);
+  BottomSheetFileOptions(this.openCamera, this.openGalery);
 
   @override
   Widget build(BuildContext context) {
@@ -15,8 +15,8 @@ class PopupOptionEditProfileImage extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           Text(
-            'Please choose',
-            style: TextStyle(fontSize: 24),
+            'Send File',
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
           SizedBox(
             height: 16,

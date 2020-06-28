@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../widgets/rounded_button.dart';
-import '../widgets/profile/popup_option_edit_profile_image.dart';
+import '../widgets/profile/dialog_edit_profile_image.dart';
 
 class EditProfileScreen extends StatefulWidget {
   static const routeName = '/edit-profile-screen';
@@ -57,7 +57,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),
           ),
-          child: PopupOptionEditProfileImage(
+          child: DialogEditProfileImage(
               _pickImageFromCamera, _pickImageFromGalery),
         );
       },

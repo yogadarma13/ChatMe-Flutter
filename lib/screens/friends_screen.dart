@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../widgets/friends/friends_list.dart';
 import '../widgets/friends/popup_menu_friend.dart';
-import '../widgets/friends/popup_action_friend.dart';
+import '../widgets/friends/dialog_action_friend.dart';
 import './room_chat_screen.dart';
 import '../models/friend.dart';
 // import '../screens/add_friend_screen.dart';
@@ -32,7 +32,7 @@ class _FriendsScreenState extends State<FriendsScreen> {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),
           ),
-          child: PopupActionFriend(
+          child: DialogActionFriend(
             name: friend.name,
             imageUrl: friend.imageUrl,
             positiveFunc: _chatFriend,

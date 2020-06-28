@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../rounded_button.dart';
 
-class PopupActionFriend extends StatelessWidget {
+class DialogActionFriend extends StatelessWidget {
   final String name;
   final String imageUrl;
   final void Function() positiveFunc;
@@ -13,7 +13,7 @@ class PopupActionFriend extends StatelessWidget {
   final Color colorNegativeButton;
   // final bool isLoading;
 
-  PopupActionFriend(
+  DialogActionFriend(
       {@required this.name,
       @required this.imageUrl,
       @required this.positiveFunc,

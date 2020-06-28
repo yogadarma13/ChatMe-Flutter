@@ -1,7 +1,12 @@
+import 'dart:io';
+
 import 'package:chat_me/models/friend.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'bottom_sheet_file_options.dart';
 
 class NewMesssage extends StatefulWidget {
   final Friend friendData;
@@ -15,6 +20,98 @@ class NewMesssage extends StatefulWidget {
 class _NewMesssageState extends State<NewMesssage> {
   final _inputMessageController = TextEditingController();
   var _enteredMessage = '';
+  final picker = ImagePicker();
+
+  Future _pickImageFromCamera() async {
+    Navigator.pop(context);
+    final pickedFile =
+        await picker.getImage(source: ImageSource.camera, imageQuality: 30);
+
+    File image = File(pickedFile.path);
+
+    return _sendFile(image);
+  }
+
+  Future _pickImageFromGalery() async {
+    Navigator.pop(context);
+    final pickedFile =
+        await picker.getImage(source: ImageSource.gallery, imageQuality: 30);
+
+    File image = File(pickedFile.path);
+
+    return _sendFile(image);
+  }
+
+  Future _sendFile(File image) async {
+    var imageId = DateTime.now();
+    final collectionMessages = Firestore.instance.collection('messages');
+    try {
+      final user = await FirebaseAuth.instance.currentUser();
+
+      final sendFileToMeRef = FirebaseStorage.instance
+          .ref()
+          .child('messages')
+          .child(user.uid)
+          .child(widget.friendData.userId)
+          .child(imageId.toIso8601String() + '.jpg');
+
+      await sendFileToMeRef.putFile(image).onComplete;
+      var myImageUrl = await sendFileToMeRef.getDownloadURL();
+
+      final sendFileToFriendRef = FirebaseStorage.instance
+          .ref()
+          .child('messages')
+          .child(widget.friendData.userId)
+          .child(user.uid)
+          .child(imageId.toIso8601String() + '.jpg');
+
+      await sendFileToFriendRef.putFile(image).onComplete;
+      var friendImgeUrl = await sendFileToFriendRef.getDownloadURL();
+
+      final timestamp = Timestamp.now();
+
+      collectionMessages.document(user.uid).setData({'dummy': 'dummy'});
+
+      collectionMessages
+          .document(user.uid)
+          .collection(widget.friendData.userId)
+          .add(
+        {
+          'message': myImageUrl,
+          'userId': user.uid,
+          'type': 'image',
+          'createdAt': timestamp,
+        },
+      );
+
+      collectionMessages
+          .document(widget.friendData.userId)
+          .setData({'dummy': 'dummy'});
+
+      collectionMessages
+          .document(widget.friendData.userId)
+          .collection(user.uid)
+          .add(
+        {
+          'message': friendImgeUrl,
+          'userId': user.uid,
+          'type': 'image',
+          'createdAt': timestamp,
+        },
+      );
+    } catch (error) {
+      print(error);
+    }
+  }
+
+  void _showMenuSendFile(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (ctx) {
+        return BottomSheetFileOptions(_pickImageFromCamera, _pickImageFromGalery);
+      },
+    );
+  }
 
   void _sendMessage() async {
     final collectionMessages = Firestore.instance.collection('messages');
@@ -32,6 +129,7 @@ class _NewMesssageState extends State<NewMesssage> {
         {
           'message': _enteredMessage,
           'userId': user.uid,
+          'type': 'text',
           'createdAt': timestamp,
         },
       );
@@ -47,6 +145,7 @@ class _NewMesssageState extends State<NewMesssage> {
         {
           'message': _enteredMessage,
           'userId': user.uid,
+          'type': 'text',
           'createdAt': timestamp,
         },
       );
@@ -66,6 +165,24 @@ class _NewMesssageState extends State<NewMesssage> {
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       child: Row(
         children: <Widget>[
+          Container(
+            height: 50,
+            width: 50,
+            decoration: BoxDecoration(
+              color: Theme.of(context).accentColor,
+              borderRadius: BorderRadius.circular(30),
+            ),
+            child: IconButton(
+              icon: Icon(Icons.add),
+              color: Colors.white,
+              onPressed: () {
+                _showMenuSendFile(context);
+              },
+            ),
+          ),
+          SizedBox(
+            width: 6,
+          ),
           Expanded(
             child: TextField(
               controller: _inputMessageController,
@@ -109,7 +226,7 @@ class _NewMesssageState extends State<NewMesssage> {
               color: Colors.white,
               onPressed: _enteredMessage.trim().isEmpty ? null : _sendMessage,
             ),
-          )
+          ),
         ],
       ),
     );
