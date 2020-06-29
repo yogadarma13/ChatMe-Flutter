@@ -70,7 +70,11 @@ class _NewMesssageState extends State<NewMesssage> {
 
       final timestamp = Timestamp.now();
 
-      collectionMessages.document(user.uid).setData({'dummy': 'dummy'});
+      collectionMessages.document(user.uid).setData(
+        {
+          'users': {widget.friendData.userId: imageId},
+        },
+      );
 
       collectionMessages
           .document(user.uid)
@@ -84,9 +88,11 @@ class _NewMesssageState extends State<NewMesssage> {
         },
       );
 
-      collectionMessages
-          .document(widget.friendData.userId)
-          .setData({'dummy': 'dummy'});
+      collectionMessages.document(widget.friendData.userId).setData(
+        {
+          'users': {user.uid: imageId},
+        },
+      );
 
       collectionMessages
           .document(widget.friendData.userId)
@@ -108,7 +114,8 @@ class _NewMesssageState extends State<NewMesssage> {
     showModalBottomSheet(
       context: context,
       builder: (ctx) {
-        return BottomSheetFileOptions(_pickImageFromCamera, _pickImageFromGalery);
+        return BottomSheetFileOptions(
+            _pickImageFromCamera, _pickImageFromGalery);
       },
     );
   }
@@ -119,8 +126,11 @@ class _NewMesssageState extends State<NewMesssage> {
       final user = await FirebaseAuth.instance.currentUser();
 
       final timestamp = Timestamp.now();
+      final imageId = DateTime.now().millisecondsSinceEpoch;
 
-      collectionMessages.document(user.uid).setData({'dummy': 'dummy'});
+      collectionMessages.document(user.uid).setData({
+        'users': {widget.friendData.userId: imageId},
+      }, merge: true);
 
       collectionMessages
           .document(user.uid)
@@ -134,9 +144,9 @@ class _NewMesssageState extends State<NewMesssage> {
         },
       );
 
-      collectionMessages
-          .document(widget.friendData.userId)
-          .setData({'dummy': 'dummy'});
+      collectionMessages.document(widget.friendData.userId).setData({
+        'users': {user.uid: imageId},
+      }, merge: true);
 
       collectionMessages
           .document(widget.friendData.userId)

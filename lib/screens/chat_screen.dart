@@ -1,46 +1,13 @@
+import 'package:chat_me/models/friend.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-// import 'package:firebase_auth/firebase_auth.dart';
-
-// import '../widgets/chat/chat_list.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import './room_chat_screen.dart';
 
 class ChatScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   title: Text('Chat'),
-      //   actions: <Widget>[
-      //     DropdownButton(
-      //       // Underline diisi container memiliki tujuan agar menghilangkan garis abu yang ada pada menu item jika diperhatikan
-      //       underline: Container(),
-      //       icon: Icon(
-      //         Icons.more_vert,
-      //         color: Theme.of(context).primaryIconTheme.color,
-      //       ),
-      //       items: [
-      //         DropdownMenuItem(
-      //           child: Container(
-      //             child: Row(
-      //               children: <Widget>[
-      //                 Icon(Icons.exit_to_app),
-      //                 SizedBox(width: 8),
-      //                 Text('Logout')
-      //               ],
-      //             ),
-      //           ),
-      //           value: 'logout',
-      //         ),
-      //       ],
-      //       // itemIdentifier ini akan berisikan value dropdownmenuitem yg dipilih
-      //       onChanged: (itemIdentifier) {
-      //         if (itemIdentifier == 'logout') {
-      //           FirebaseAuth.instance.signOut();
-      //         }
-      //       },
-      //     )
-      //   ],
-      // ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -116,45 +83,90 @@ class ChatScreen extends StatelessWidget {
             ),
           ),
           Expanded(
-            child: ListView.builder(
-                itemCount: 10,
-                // Ini bisa membuat efek bounce diatasnya menjadi hilang jadi hanya dibawah
-                // shrinkWrap: true,
-                physics: BouncingScrollPhysics(),
-                itemBuilder: (ctx, _) => ListTile(
-                      onTap: () {
-                        Navigator.pushNamed(context, RoomChatScreen.routeName,
-                            arguments: 'Yoga Darma Putra');
-                      },
-                      leading: CircleAvatar(
-                        radius: 30,
-                        backgroundImage: NetworkImage(
-                            'https://www.biography.com/.image/t_share/MTM2OTI2NTY2Mjg5NTE2MTI5/justin_bieber_2015_photo_courtesy_dfree_shutterstock_348418241_croppedjpg.jpg'),
-                      ),
-                      title: Text('Yoga Darma'),
-                      subtitle: Text(
-                        'Hello',
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: Colors.grey.shade500,
+            child: FutureBuilder(
+              future: FirebaseAuth.instance.currentUser(),
+              builder: (ctx, userSnap) {
+                if (userSnap.connectionState == ConnectionState.waiting) {
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+                FirebaseUser user = userSnap.data;
+                return StreamBuilder(
+                  stream: Firestore.instance
+                      .collection('messages')
+                      .document(user.uid)
+                      .snapshots(),
+                  builder: (ctx, friendsSnap) {
+                    if (friendsSnap.connectionState ==
+                        ConnectionState.waiting) {
+                      return Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                    DocumentSnapshot data = friendsSnap.data;
+                    if (data.exists) {
+                      Map<String, dynamic> friendIdChat =
+                          friendsSnap.data['users'];
+                      return ListView.builder(
+                        itemCount: friendIdChat.keys.length,
+                        itemBuilder: (ctx, index) => StreamBuilder(
+                          stream: Firestore.instance
+                              .collection('messages')
+                              .document(user.uid)
+                              .collection(friendIdChat.keys.elementAt(index))
+                              .orderBy('createdAt', descending: true)
+                              .limit(1)
+                              .snapshots(),
+                          builder: (ctx, messageSnap) {
+                            if (messageSnap.connectionState ==
+                                ConnectionState.waiting) {
+                              return Container();
+                            }
+                            return StreamBuilder(
+                              stream: Firestore.instance
+                                  .collection('users')
+                                  .document(friendIdChat.keys.elementAt(index))
+                                  .snapshots(),
+                              builder: (ctx, snapshot) {
+                                if (snapshot.connectionState ==
+                                    ConnectionState.waiting) {
+                                  return Container();
+                                }
+                                Friend friendData =
+                                    Friend.fromSnapshot(snapshot.data);
+                                return ListTile(
+                                  leading: CircleAvatar(
+                                    radius: 30,
+                                    backgroundColor: Colors.grey.shade200,
+                                    backgroundImage: friendData.imageUrl.isEmpty
+                                        ? AssetImage(
+                                            'assets/images/default_avatar.png')
+                                        : NetworkImage(friendData.imageUrl),
+                                  ),
+                                  title: Text(friendData.name),
+                                  subtitle: Text(
+                                      messageSnap.data.documents[0]['message']),
+                                  onTap: () {
+                                    Navigator.pushNamed(
+                                        context, RoomChatScreen.routeName,
+                                        arguments: friendData);
+                                  },
+                                );
+                              },
+                            );
+                          },
                         ),
-                      ),
-                      trailing: Text(
-                        '12 Jan',
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: Colors.grey.shade500,
-                        ),
-                      ),
-                    )
-                // ChatList(
-                //   userName: 'Yoga Darma',
-                //   message: 'Hello',
-                //   image:
-                //       'https://www.biography.com/.image/t_share/MTM2OTI2NTY2Mjg5NTE2MTI5/justin_bieber_2015_photo_courtesy_dfree_shutterstock_348418241_croppedjpg.jpg',
-                //   time: '12 Jan',
-                // ),
-                ),
+                      );
+                    } else {
+                      return Center(
+                        child: Text('No message'),
+                      );
+                    }
+                  },
+                );
+              },
+            ),
           ),
         ],
       ),
