@@ -1,8 +1,9 @@
-import 'package:chat_me/models/friend.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+
 import './room_chat_screen.dart';
+import '../models/friend.dart';
 
 class ChatScreen extends StatelessWidget {
   @override

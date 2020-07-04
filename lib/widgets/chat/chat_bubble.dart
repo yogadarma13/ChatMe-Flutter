@@ -1,29 +1,24 @@
 import 'package:flutter/material.dart';
 
-class ChatBubble extends StatefulWidget {
+import '../../screens/full_image_screen.dart';
+
+class ChatBubble extends StatelessWidget {
+  final String docId;
   final String message;
   final String type;
   final bool isMe;
   final Key key;
 
-  ChatBubble(this.message, this.type, this.isMe, {this.key});
+  ChatBubble(this.docId, this.message, this.type, this.isMe, {this.key});
 
-  @override
-  _ChatBubbleState createState() => _ChatBubbleState();
-}
-
-class _ChatBubbleState extends State<ChatBubble> {
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(
-          top: 8,
-          bottom: 8,
-          right: widget.isMe ? 16 : 80,
-          left: widget.isMe ? 80 : 16),
+          top: 8, bottom: 8, right: isMe ? 16 : 80, left: isMe ? 80 : 16),
       child: Align(
-        alignment: (widget.isMe) ? Alignment.topRight : Alignment.topLeft,
-        child: widget.type == 'text'
+        alignment: (isMe) ? Alignment.topRight : Alignment.topLeft,
+        child: type == 'text'
             ? Container(
                 padding: EdgeInsets.all(16),
                 // color:
@@ -31,12 +26,12 @@ class _ChatBubbleState extends State<ChatBubble> {
                   borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(20),
                       topRight: Radius.circular(20),
-                      bottomRight: Radius.circular(widget.isMe ? 0 : 20),
-                      bottomLeft: Radius.circular(widget.isMe ? 20 : 0)),
-                  color: widget.isMe ? Colors.green : Colors.blue,
+                      bottomRight: Radius.circular(isMe ? 0 : 20),
+                      bottomLeft: Radius.circular(isMe ? 20 : 0)),
+                  color: isMe ? Colors.green : Colors.blue,
                 ),
                 child: Text(
-                  widget.message,
+                  message,
                   style: TextStyle(color: Colors.white),
                 ),
               )
@@ -45,10 +40,17 @@ class _ChatBubbleState extends State<ChatBubble> {
                 width: 192,
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(20),
-                  child: FadeInImage(
-                    placeholder: AssetImage('assets/images/default_avatar.png'),
-                    image: NetworkImage(widget.message),
-                    fit: BoxFit.cover,
+                  child: GestureDetector(
+                    onTap: () => Navigator.pushNamed(context, FullImageScreen.routeName, arguments: {'id': docId, 'imageUrl': message}),
+                    child: Hero(
+                      tag: docId,
+                      child: FadeInImage(
+                        placeholder:
+                            AssetImage('assets/images/default_avatar.png'),
+                        image: NetworkImage(message),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
                   ),
                 ),
               ),

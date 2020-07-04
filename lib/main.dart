@@ -8,6 +8,7 @@ import './screens/room_chat_screen.dart';
 import './screens/add_friend_screen.dart';
 import './screens/friend_request_screen.dart';
 import './screens/edit_profile_screen.dart';
+import './screens/full_image_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -31,11 +32,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
         appBarTheme: AppBarTheme.of(context).copyWith(
-          iconTheme: IconThemeData(
-            color: Colors.black
-          ),
-          color: Colors.white
-        ),
+            iconTheme: IconThemeData(color: Colors.black), color: Colors.white),
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       debugShowCheckedModeBanner: false,
@@ -57,6 +54,7 @@ class MyApp extends StatelessWidget {
         AddFriendScreen.routeName: (ctx) => AddFriendScreen(),
         FriendRequestScreen.routeName: (ctx) => FriendRequestScreen(),
         EditProfileScreen.routeName: (ctx) => EditProfileScreen(),
+        FullImageScreen.routeName: (ctx) => FullImageScreen()
       },
     );
   }

@@ -1,10 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+
 import '../widgets/friends/friends_list.dart';
 import '../screens/add_friend_screen.dart';
 import '../widgets/friends/dialog_action_friend.dart';
-
 import '../models/friend.dart';
 
 class FriendRequestScreen extends StatefulWidget {

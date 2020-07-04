@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../../screens/add_friend_screen.dart';
 import '../../screens/friend_request_screen.dart';
 

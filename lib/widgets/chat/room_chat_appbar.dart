@@ -1,5 +1,6 @@
-import 'package:chat_me/models/friend.dart';
 import 'package:flutter/material.dart';
+
+import '../../models/friend.dart';
 
 class RoomChatAppbar extends StatelessWidget implements PreferredSizeWidget {
   final Friend dataFriend;

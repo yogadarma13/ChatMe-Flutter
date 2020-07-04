@@ -1,9 +1,9 @@
-import 'package:chat_me/models/friend.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import './chat_bubble.dart';
+import '../../models/friend.dart';
 
 class Messages extends StatelessWidget {
   final Friend friend;
@@ -39,6 +39,7 @@ class Messages extends StatelessWidget {
               reverse: true,
               itemCount: messages.length,
               itemBuilder: (ctx, index) => ChatBubble(
+                messages[index].documentID,
                 messages[index]['message'],
                 messages[index]['type'],
                 messages[index]['userId'] == user.uid,

@@ -6,10 +6,10 @@ import '../widgets/profile/data_profile.dart';
 import '../models/user.dart';
 import '../widgets/rounded_button.dart';
 import './edit_profile_screen.dart';
+import '../screens/full_image_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
-
-  void _userLogout() async{
+  void _userLogout() async {
     await FirebaseAuth.instance.signOut();
   }
 
@@ -56,7 +56,9 @@ class ProfileScreen extends StatelessWidget {
                             ),
                             GestureDetector(
                               onTap: () {
-                                Navigator.pushNamed(context, EditProfileScreen.routeName, arguments: userData);
+                                Navigator.pushNamed(
+                                    context, EditProfileScreen.routeName,
+                                    arguments: userData);
                               },
                               child: Container(
                                 padding: EdgeInsets.symmetric(
@@ -92,13 +94,29 @@ class ProfileScreen extends StatelessWidget {
                     ),
                     Container(
                       margin: EdgeInsets.only(top: 32),
-                      child: CircleAvatar(
-                        radius: 55,
-                        backgroundColor: Colors.grey.shade200,
-                        backgroundImage: userData.imageUrl.isEmpty
-                            ? AssetImage('assets/images/default_avatar.png')
-                            : NetworkImage(userData.imageUrl),
-                      ),
+                      child: userData.imageUrl.isEmpty
+                          ? CircleAvatar(
+                              radius: 55,
+                              backgroundColor: Colors.grey.shade200,
+                              backgroundImage: AssetImage(
+                                  'assets/images/default_avatar.png'),
+                            )
+                          : GestureDetector(
+                              onTap: () => Navigator.pushNamed(
+                                  context, FullImageScreen.routeName,
+                                  arguments: {
+                                    'id': userData.userId,
+                                    'imageUrl': userData.imageUrl
+                                  }),
+                              child: Hero(
+                                  tag: userData.userId,
+                                  child: CircleAvatar(
+                                    radius: 55,
+                                    backgroundColor: Colors.grey.shade200,
+                                    backgroundImage:
+                                        NetworkImage(userData.imageUrl),
+                                  )),
+                            ),
                     ),
                     Container(
                       margin: EdgeInsets.only(
@@ -125,7 +143,8 @@ class ProfileScreen extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: <Widget>[
-                            DataProfile(Icons.assignment_ind, 'ID', userData.id),
+                            DataProfile(
+                                Icons.assignment_ind, 'ID', userData.id),
                             SizedBox(
                               height: 16,
                             ),
@@ -135,7 +154,9 @@ class ProfileScreen extends StatelessWidget {
                               height: 16,
                             ),
                             DataProfile(Icons.email, 'Email', userData.email),
-                            SizedBox(height: 32,),
+                            SizedBox(
+                              height: 32,
+                            ),
                             RoundedButton('Logout', Colors.red, _userLogout)
                           ],
                         ),

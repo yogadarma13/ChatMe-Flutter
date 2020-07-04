@@ -1,4 +1,3 @@
-import 'package:chat_me/models/friend.dart';
 import 'package:flutter/material.dart';
 
 import '../widgets/chat/room_chat_appbar.dart';

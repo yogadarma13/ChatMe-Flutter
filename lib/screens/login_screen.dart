@@ -83,7 +83,7 @@ class _LoginScreenState extends State<LoginScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Text('Belum punya akun?'),
+                  Text("Don't have an account?"),
                   FlatButton(
                       materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                       padding: EdgeInsets.symmetric(horizontal: 0),

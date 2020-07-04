@@ -1,8 +1,8 @@
-import 'package:chat_me/screens/profile_screen.dart';
 import 'package:flutter/material.dart';
 
 import './friends_screen.dart';
 import './chat_screen.dart';
+import './profile_screen.dart';
 
 class MainScreen extends StatefulWidget {
   @override

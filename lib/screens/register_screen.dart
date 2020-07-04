@@ -107,7 +107,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Text('Sudah punya akun?'),
+                  Text('Already have an account?'),
                   FlatButton(
                       materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                       padding: EdgeInsets.symmetric(horizontal: 0),
