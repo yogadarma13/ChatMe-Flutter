@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 
 import '../../models/friend.dart';
+import '../../screens/all_photos_screen.dart';
 
 class RoomChatAppbar extends StatelessWidget implements PreferredSizeWidget {
-  final Friend dataFriend;
+    final Friend dataFriend;
+    final void Function(String routeName, BuildContext context, Friend friend) navigateMenuRoomChat;
 
-  RoomChatAppbar(this.dataFriend);
+  RoomChatAppbar(this.dataFriend, this.navigateMenuRoomChat);
 
   @override
   Widget build(BuildContext context) {
@@ -51,17 +53,20 @@ class RoomChatAppbar extends StatelessWidget implements PreferredSizeWidget {
                     SizedBox(
                       height: 6,
                     ),
-                    Text(
-                      'Online',
-                      style: TextStyle(color: Colors.green, fontSize: 12),
-                    ),
                   ],
                 ),
               ),
-              Icon(
-                Icons.more_vert,
-                color: Colors.grey.shade700,
-              ),
+              PopupMenuButton(
+                itemBuilder: (context) => [
+                  PopupMenuItem(
+                    value: AllPhotosScreen.routeName,
+                    child: Text('All Photos'),
+                  ),
+                ],
+                onSelected: (value) {
+                  navigateMenuRoomChat(value, context, dataFriend);
+                },
+              )
             ],
           ),
         ),

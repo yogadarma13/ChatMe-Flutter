@@ -103,19 +103,22 @@ class ProfileScreen extends StatelessWidget {
                             )
                           : GestureDetector(
                               onTap: () => Navigator.pushNamed(
-                                  context, FullImageScreen.routeName,
-                                  arguments: {
-                                    'id': userData.userId,
-                                    'imageUrl': userData.imageUrl
-                                  }),
+                                context,
+                                FullImageScreen.routeName,
+                                arguments: {
+                                  'id': userData.userId,
+                                  'imageUrl': userData.imageUrl
+                                },
+                              ),
                               child: Hero(
-                                  tag: userData.userId,
-                                  child: CircleAvatar(
-                                    radius: 55,
-                                    backgroundColor: Colors.grey.shade200,
-                                    backgroundImage:
-                                        NetworkImage(userData.imageUrl),
-                                  )),
+                                tag: userData.userId,
+                                child: CircleAvatar(
+                                  radius: 55,
+                                  backgroundColor: Colors.grey.shade200,
+                                  backgroundImage:
+                                      NetworkImage(userData.imageUrl),
+                                ),
+                              ),
                             ),
                     ),
                     Container(

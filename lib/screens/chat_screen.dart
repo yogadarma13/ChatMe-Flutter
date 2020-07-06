@@ -146,7 +146,7 @@ class ChatScreen extends StatelessWidget {
                                         : NetworkImage(friendData.imageUrl),
                                   ),
                                   title: Text(friendData.name),
-                                  subtitle: Text(
+                                  subtitle: Text(messageSnap.data.documents[0]['type'] == 'image' ? 'Send a image' :
                                       messageSnap.data.documents[0]['message']),
                                   onTap: () {
                                     Navigator.pushNamed(

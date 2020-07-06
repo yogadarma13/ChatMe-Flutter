@@ -9,6 +9,7 @@ import './screens/add_friend_screen.dart';
 import './screens/friend_request_screen.dart';
 import './screens/edit_profile_screen.dart';
 import './screens/full_image_screen.dart';
+import './screens/all_photos_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -54,7 +55,8 @@ class MyApp extends StatelessWidget {
         AddFriendScreen.routeName: (ctx) => AddFriendScreen(),
         FriendRequestScreen.routeName: (ctx) => FriendRequestScreen(),
         EditProfileScreen.routeName: (ctx) => EditProfileScreen(),
-        FullImageScreen.routeName: (ctx) => FullImageScreen()
+        FullImageScreen.routeName: (ctx) => FullImageScreen(),
+        AllPhotosScreen.routeName: (ctx) => AllPhotosScreen()
       },
     );
   }
